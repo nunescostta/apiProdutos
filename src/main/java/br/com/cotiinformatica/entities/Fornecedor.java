@@ -1,6 +1,9 @@
 package br.com.cotiinformatica.entities;
 
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,8 +39,8 @@ public class Fornecedor {
 	@Column(name = "cnpj", length = 20, nullable = false)
 	private String cnpj;
 
+	@JsonIgnore // este campo não sera mostrado na consulta da API
 	@OneToMany(mappedBy = "fornecedor") // um fornecedor para muitos produtos
-
 	private List<Produto> produtos;
 
 }
