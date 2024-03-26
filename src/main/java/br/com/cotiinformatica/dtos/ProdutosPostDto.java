@@ -16,7 +16,7 @@ public class ProdutosPostDto {
 	private String nome;
 	private Double preco;
 	private Integer quantidade;
-	private Integer fornecedor;
+	private Integer fornecedorId;
 	
 	
 }

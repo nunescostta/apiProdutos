@@ -1,6 +1,8 @@
 package br.com.cotiinformatica.controllers;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import br.com.cotiinformatica.dtos.ProdutosPostDto;
 import br.com.cotiinformatica.dtos.ProdutosPutDto;
 import br.com.cotiinformatica.entities.Fornecedor;
@@ -41,7 +44,7 @@ public class ProdutosController {
 			produto.setQuantidade(dto.getQuantidade());
 
 			// consultar fornecedor no banco de dados pelo ID
-			Fornecedor fornecedor = fornecedorRepository.findById(dto.getFornecedor()).get();
+			Fornecedor fornecedor = fornecedorRepository.findById(dto.getFornecedorId()).get();
 
 			// assocando o fornecedor ao produto
 			produto.setFornecedor(fornecedor);
@@ -71,7 +74,7 @@ public class ProdutosController {
 			produto.setQuantidade(dto.getQuantidade());
 
 			// consultando p fornecedor no banco de dados
-			Fornecedor fornecedor = fornecedorRepository.findById(dto.getFornecedor()).get();
+			Fornecedor fornecedor = fornecedorRepository.findById(dto.getFornecedorId()).get();
 
 			// associando o produto no banco de dados
 			produto.setFornecedor(fornecedor);
@@ -115,6 +118,21 @@ public class ProdutosController {
 		// Consultar todos os produtos no banco de dados
 		return produtoRepository.findAll();
 
+	}
+	
+	@GetMapping("{id}")
+	public Produto getById(@PathVariable("id") Integer id) {
+		
+		//consultar 1 produto por id
+		Optional<Produto> produto = produtoRepository.findById(id);
+		
+		//verificar se o produto foi encontrado
+		if (produto.isPresent()) {
+			//retornar dados do produto
+			return produto.get();
+		} else {
+			return null; //vazio
+		}
 	}
 
 }

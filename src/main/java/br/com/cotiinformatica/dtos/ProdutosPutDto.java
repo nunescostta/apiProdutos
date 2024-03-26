@@ -11,13 +11,12 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-
 public class ProdutosPutDto {
 
 	private Integer id;
 	private String nome;
 	private Double preco;
 	private Integer quantidade;
-	private Integer fornecedor;
+	private Integer fornecedorId;
 
 }
